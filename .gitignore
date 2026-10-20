@@ -1,0 +1,21 @@
+# Local RStudio settings and session files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Downloaded source data
+data/raw/*
+
+# Generated database files
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Downloaded pathway annotation cache
+data/processed/reactome_annotations.rds
+
+# Operating system files
+.DS_Store
+Thumbs.db
