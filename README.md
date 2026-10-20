@@ -1,9 +1,3 @@
----
-title: "README"
-format: html
-editor: visual
----
-
 # Psoriasis Gene Expression and Pathway Analysis
 
 An exploratory SQL and R analysis of public RNA-seq data comparing psoriasis-affected skin with healthy skin.
