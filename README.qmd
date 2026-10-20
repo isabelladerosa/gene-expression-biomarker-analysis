@@ -98,3 +98,58 @@ Internet access is required for downloading GEO metadata and MSigDB annotations.
 -   Higher- and lower-expression genes are combined for enrichment; results do not establish pathway activation or suppression.
 -   Related pathways share genes and are not independent findings.
 -   No independent validation or diagnostic performance testing was performed. These results do not establish validated biomarkers.
+
+
+## Database Structure
+
+```mermaid
+erDiagram
+    genes ||--o{ expression : "has measurements"
+    samples ||--o{ expression : "provides measurements"
+    genes ||--o| differential_expression : "has model result"
+    genes ||--o{ gene_pathways : "has annotations"
+    pathways ||--o{ gene_pathways : "contains genes"
+
+    genes {
+        TEXT gene_symbol PK
+    }
+
+    samples {
+        TEXT sample_id PK
+        TEXT geo_accession
+        TEXT tissue_type
+        TEXT disease_group
+    }
+
+    expression {
+        TEXT gene_symbol PK,FK
+        TEXT sample_id PK,FK
+        REAL rpkm
+    }
+
+    differential_expression {
+        TEXT gene_symbol
+        REAL logFC
+        REAL adj_P_Val
+        TEXT result_group
+    }
+
+    pathways {
+        TEXT pathway_id
+        TEXT pathway_name
+        TEXT source
+        TEXT db_version
+    }
+
+    gene_pathways {
+        TEXT gene_symbol
+        TEXT pathway_id
+    }
+```
+
+Relationships show how the tables join. Foreign-key constraints are
+enforced for the expression table; the model-result and pathway tables
+were imported without database-level key constraints.
+
+The diagram abbreviates the model-results table. Its adjusted p-value
+column is named `adj.P.Val` in the database.
